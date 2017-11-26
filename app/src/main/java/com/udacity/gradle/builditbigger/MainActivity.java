@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,11 +53,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method that executes an AsyncTask that launches a
+     * new activity with the corresponding joke
+     *
+     * @param view The button pressed to display the joke
+     */
     public void tellJoke(View view) {
         String joke = JokeSupplier.supplyJoke();
         Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
-
-        Log.v("MAIN", "TELLING JOKE");
 
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this, JokeSupplier.supplyJoke()));
 
@@ -70,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Pair<Context, String>... params) {
-            Log.v("MAIN", "STARTING TASK");
             if(myApiService == null) {  // Only do this once
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
@@ -85,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                 // end options for devappserver
-
                 myApiService = builder.build();
             }
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             String joke = params[0].second;
 
             try {
-                return myApiService.sayHi(joke).execute().getData();
+                return myApiService.tellJoke(joke).execute().getData();
             } catch (IOException e) {
                 return e.getMessage();
             }

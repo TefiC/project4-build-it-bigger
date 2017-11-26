@@ -25,12 +25,24 @@ public class JokeSupplier {
      * Methods
      */
 
+    /**
+     * Method that supplies a joke by taking a joke
+     * from the jokes array increasing the index by 1
+     * until it reaches the end of the list and then
+     * goes back to the first element again
+     *
+     * @return A Joke as a String
+     */
     public static String supplyJoke() {
         String joke = jokes[mCurrentJokeIndex];
         changeNextJoke();
         return joke;
     }
 
+    /**
+     * Updates the index for the next joke that
+     * is to be displayed to the user
+     */
     public static void changeNextJoke() {
         if(mCurrentJokeIndex != mNumOfJokes - 1) {
             mCurrentJokeIndex += 1;

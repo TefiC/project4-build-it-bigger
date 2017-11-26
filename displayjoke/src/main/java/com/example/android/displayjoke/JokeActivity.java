@@ -19,6 +19,5 @@ public class JokeActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.joke_display);
         textView.setText(joke);
-
     }
 }
