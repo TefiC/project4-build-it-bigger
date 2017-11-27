@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -23,6 +27,11 @@ import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG_COUNTING_IDLING_RESOURCE = "NEW_LOADER";
+
+    // Testing Idling resource
+    public static CountingIdlingResource mIdlingResource = new CountingIdlingResource(TAG_COUNTING_IDLING_RESOURCE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         String joke = JokeSupplier.supplyJoke();
         Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
 
+        // For testing idling resource
+        mIdlingResource.increment();
+
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this, JokeSupplier.supplyJoke()));
 
     }
@@ -73,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Pair<Context, String>... params) {
+
             if(myApiService == null) {  // Only do this once
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
@@ -106,6 +119,21 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(context, JokeActivity.class);
             intent.putExtra("joke", result);
             startActivity(intent);
+
+            // For testing idling resource
+            mIdlingResource.decrement();
         }
+    }
+
+    /**
+     * Only called from testing, creates and returns a new CountingIdlingResource
+     */
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new CountingIdlingResource(TAG_COUNTING_IDLING_RESOURCE);
+        }
+        return mIdlingResource;
     }
 }
