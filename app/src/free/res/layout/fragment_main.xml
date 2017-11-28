@@ -13,7 +13,7 @@
         android:id="@+id/instructions_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/instructions" />
+        android:text="@string/free_message" />
 
     <Button
         android:id="@+id/tell_joke_button"
@@ -23,11 +23,12 @@
         android:onClick="tellJoke"
         android:text="@string/button_text"
 
-        />
+    />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:tag="ad_view"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
