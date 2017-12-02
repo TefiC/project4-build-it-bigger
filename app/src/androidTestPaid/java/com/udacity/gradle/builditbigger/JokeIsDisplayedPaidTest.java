@@ -1,13 +1,11 @@
-package com.udacity.gradle.builditbigger.testPaid;
+package com.udacity.gradle.builditbigger;
 
 import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.udacity.gradle.builditbigger.CustomAssertions.TextViewNotEmptyAssertion;
-import com.udacity.gradle.builditbigger.MainActivity;
-import com.udacity.gradle.builditbigger.R;
+import com.udacity.gradle.builditbigger.CustomAssertions.TextViewNotEmptyPaidAssertion;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,7 +20,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class JokeIsDisplayedTest {
+public class JokeIsDisplayedPaidTest {
 
     /*
      * Activity
@@ -43,7 +41,7 @@ public class JokeIsDisplayedTest {
 
         // Handle asynchronous request
         registerIdlingResource();
-        onView(withId(R.id.joke_display)).check(new TextViewNotEmptyAssertion());
+        onView(withId(R.id.joke_display)).check(new TextViewNotEmptyPaidAssertion());
     }
 
     /*

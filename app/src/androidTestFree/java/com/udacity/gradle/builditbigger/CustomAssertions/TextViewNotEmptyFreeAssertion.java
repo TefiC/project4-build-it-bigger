@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.greaterThan;
  * Custom assertion to check that a TextView is not empty
  */
 
-public class TextViewNotEmptyAssertion implements ViewAssertion {
+public class TextViewNotEmptyFreeAssertion implements ViewAssertion {
 
     /*
      * Methods

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<TextView xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/joke_display"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:text="New activity! Joke">
+    tools:text="New activity! Joke"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="#edecec"
+    android:paddingTop="60dp"
+    android:paddingBottom="60dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:textSize="20sp">
 
 </TextView>
