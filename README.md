@@ -57,3 +57,4 @@ These resources were very helpful during my project:
 * [Udacity Forum Post for Gradle Tasks Structure (1)](https://discussions.udacity.com/t/last-optional-step-how-to-start-an-external-module-task-from-the-root-build-gradle/24211/9)
 * [Udacity Forum Post for Gradle Tasks Structure (2)](https://discussions.udacity.com/t/last-optional-step-how-to-start-an-external-module-task-from-the-root-build-gradle/24211/12)
 * [Google Cloud Endpoints (code and documentation)](https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints)
+* [Project from Udacity's Repository](https://github.com/udacity/ud867/tree/master/FinalProject)
