@@ -56,3 +56,4 @@ These resources were very helpful during my project:
 * [Closing interstitial Ad with Espresso](https://stackoverflow.com/questions/37843039/how-to-handleclose-interstitial-ad-during-espresso-tests)
 * [Udacity Forum Post for Gradle Tasks Structure (1)](https://discussions.udacity.com/t/last-optional-step-how-to-start-an-external-module-task-from-the-root-build-gradle/24211/9)
 * [Udacity Forum Post for Gradle Tasks Structure (2)](https://discussions.udacity.com/t/last-optional-step-how-to-start-an-external-module-task-from-the-root-build-gradle/24211/12)
+* [Google Cloud Endpoints (code and documentation)](https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints)
