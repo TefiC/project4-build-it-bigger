@@ -32,10 +32,22 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*
+     * Constants
+     */
+
     private static final String TAG_COUNTING_IDLING_RESOURCE = "NEW_LOADER";
 
-    private static InterstitialAd mInterstitialAd;
+    /*
+     * Fields
+     */
+
     private Context mContext;
+
+    // Ad
+    private static InterstitialAd mInterstitialAd;
+
+    // Views
     private ProgressBar mProgressBar;
     private RelativeLayout mMainActivityLayout;
 
@@ -47,42 +59,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Assign context and view
         mContext = this;
-
         assignViews();
 
-        // Set up interstitial ad
+        // Set up and start loading interstitial Ad
         setUpInterstitialAd();
         loadInterstitialAd();
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when when the interstitial ad is closed.
-                startAsyncTask(mContext);
-                loadInterstitialAd();
-            }
-        });
+        setInterstitialAdListener();
     }
 
 
@@ -109,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that executes an AsyncTask that launches a
-     * new activity with the corresponding joke
+     * Method that executes an AsyncTask that launches
+     * a new activity that displays the corresponding joke
      *
      * @param view The button pressed to display the joke
      */
@@ -129,12 +113,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * AsyncTask that loads a joke from the local server
+     */
     class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
-        private MyApi myApiService = null;
+
+        /*
+         * Fields
+         */
+
         private Context context;
+        private MyApi myApiService = null;
+
+        /*
+         * Methods
+         */
 
         @Override
         protected void onPreExecute() {
+            // Progress bar and layout visibility
             mProgressBar.setVisibility(View.VISIBLE);
             mMainActivityLayout.setVisibility(View.GONE);
             super.onPreExecute();
@@ -172,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-
             // Prepare intent
             Intent intent = new Intent(context, JokeActivity.class);
             intent.putExtra("joke", result);
@@ -183,13 +179,14 @@ public class MainActivity extends AppCompatActivity {
             // For testing idling resource
             mIdlingResource.decrement();
 
-            // Hide progess bar
+            // Hide progress bar
             mProgressBar.setVisibility(View.GONE);
         }
     }
 
     /**
      * Only called from testing, creates and returns a new CountingIdlingResource
+     * if one doesn't exist already. Else, it returns the current one.
      */
     @VisibleForTesting
     @NonNull
@@ -202,33 +199,85 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-
         // In case the layout is not visible when the user returns to the activity
         if (mMainActivityLayout.getVisibility() != View.VISIBLE) {
             mMainActivityLayout.setVisibility(View.VISIBLE);
         }
-
         super.onRestart();
     }
 
+    /*
+     * Helper methods
+     */
+
+    /**
+     * Assigns the views that will be populated with data
+     */
     private void assignViews() {
         mProgressBar = findViewById(R.id.joke_progress_bar);
         mMainActivityLayout = findViewById(R.id.main_activity_layout);
     }
 
+    /**
+     * Starts an AsyncTask that launches a new activity
+     * and supplies a joke to be displayed on the new activity
+     *
+     * @param context The Activity Context
+     */
     private void startAsyncTask(Context context) {
         // For testing idling resource
         mIdlingResource.increment();
         new EndpointsAsyncTask().execute(new Pair<Context, String>(context, JokeSupplier.supplyJoke()));
     }
 
+    /**
+     * Sets up an interstitial Ad
+     */
     private void setUpInterstitialAd() {
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
     }
 
+    /**
+     * Starts loading an interstitial Ad
+     */
     private void loadInterstitialAd() {
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
+    }
+
+    /**
+     * Assigns a listener for the interstitial Ad to
+     * handle the Ad's lifecycle events
+     */
+    private void setInterstitialAdListener() {
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the interstitial ad is closed.
+                startAsyncTask(mContext);
+                loadInterstitialAd();
+            }
+        });
     }
 }
 

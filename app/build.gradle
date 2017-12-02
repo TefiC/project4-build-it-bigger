@@ -29,20 +29,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2.2', {
+    // Compile
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
+    compile project(path: ':backend', configuration: 'android-endpoints')
+    compile project(':jokesupplier')
+    compile project(':displayjoke')
+
+    // AndroidTestCompile
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude module: 'espresso-idling-resource'
     })
 
-    compile 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
-
-    compile 'com.android.support:appcompat-v7:26.+'
+    // FreeCompile
     freeCompile 'com.google.android.gms:play-services-ads:10.2.6'
-    compile 'com.google.code.findbugs:jsr305:2.0.1'
-    compile project(path: ':backend', configuration: 'android-endpoints')
-//    compile project(path: ':backend')
-
-    compile project(':jokesupplier')
-    compile project(':displayjoke')
 }

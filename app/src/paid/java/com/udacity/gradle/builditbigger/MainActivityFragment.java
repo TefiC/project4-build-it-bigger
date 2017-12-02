@@ -8,18 +8,24 @@ import android.view.ViewGroup;
 
 
 /**
- * A placeholder fragment containing a simple view.
+ * A Fragment that contains a button to display jokes
  */
 public class MainActivityFragment extends Fragment {
 
-    public MainActivityFragment() {
-    }
+    /*
+     * Constructor
+     */
+
+    public MainActivityFragment() {}
+
+    /*
+     * Methods
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-
         return root;
     }
 }

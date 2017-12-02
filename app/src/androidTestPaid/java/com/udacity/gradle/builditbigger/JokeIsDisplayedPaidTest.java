@@ -30,7 +30,6 @@ public class JokeIsDisplayedPaidTest {
     public ActivityTestRule<MainActivity> mActivityTestRule =
             new ActivityTestRule<MainActivity>(MainActivity.class, true, true);
 
-
     /*
      * Tests
      */

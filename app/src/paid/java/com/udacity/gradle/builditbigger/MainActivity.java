@@ -28,22 +28,36 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*
+     * Constants
+     */
+
     private static final String TAG_COUNTING_IDLING_RESOURCE = "NEW_LOADER";
 
+    /*
+     * Fields
+     */
+
     private Context mContext;
+
+    // Views
     private ProgressBar mProgressBar;
     private RelativeLayout mMainActivityLayout;
 
     // Testing Idling resource
     public static CountingIdlingResource mIdlingResource = new CountingIdlingResource(TAG_COUNTING_IDLING_RESOURCE);
 
+    /*
+     * Methods
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Assign context and views
         mContext = this;
-
         assignViews();
     }
 
@@ -80,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         startAsyncTask(mContext);
     }
 
+
+    /**
+     * AsyncTask that gets a joke from a local server
+     */
     class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
         private MyApi myApiService = null;
         private Context context;
@@ -134,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             // For testing idling resource
             mIdlingResource.decrement();
 
-            // Hide progess bar
+            // Hide progress bar
             mProgressBar.setVisibility(View.GONE);
         }
     }
@@ -153,20 +171,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-
         // In case the layout is not visible when the user returns to the activity
         if (mMainActivityLayout.getVisibility() != View.VISIBLE) {
             mMainActivityLayout.setVisibility(View.VISIBLE);
         }
-
         super.onRestart();
     }
 
+    /**
+     * Assign the views that will be populated with data
+     */
     private void assignViews() {
         mProgressBar = findViewById(R.id.joke_progress_bar);
         mMainActivityLayout = findViewById(R.id.main_activity_layout);
     }
 
+    /**
+     * Start AsyncTask that launches an activity that displays a joke
+     * retrieved from a local server
+     *
+     * @param context The Activity Context
+     */
     private void startAsyncTask(Context context) {
         // For testing idling resource
         mIdlingResource.increment();

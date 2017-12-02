@@ -7,10 +7,20 @@ public class JokeSupplier {
      */
 
     private static String[] jokes = new String[] {
-            "There are 10 types of people in the world: those who understand binary, and those who don't",
+            "There are 10 types of people in the world: those who understand binary, and those who don't.",
             "How many programmers does it take to change a light bulb? \n" + "None. It's a hardware problem.",
             "A SEO couple had twins. For the first time they were happy with duplicate content.",
-            "Why was the JavaScript developer sad? \n" + "Because he didn't Node how to Express himself"
+            "Why was the JavaScript developer sad? \n" + "Because he didn't Node how to Express himself.",
+            "In order to understand recursion you must first understand recursion.",
+            "Why do Java developers wear glasses? Because they can't C#",
+            "Why did the developer go broke? \n Because he used up all his cache.",
+            "Why did the geek add body { padding-top: 1000px; } to his Facebook profile? \n" +
+                    "He wanted to keep a low profile.",
+            "8 bytes walk into a bar, the bartenders asks \"What will it be?\"\n" +
+                    "One of them says, \"Make us a double.\"",
+            "Two bytes meet. The first byte asks, \"Are you ill?\" \n" +
+                    "The second byte replies, \"No, just feeling a bit off.\"",
+            "There are only two hard things in computer science: cache invalidation, naming things, and off-by-one errors."
     };
 
     /*
@@ -19,7 +29,6 @@ public class JokeSupplier {
 
     private static int mNumOfJokes = jokes.length;
     private static int mCurrentJokeIndex = 0;
-
 
     /*
      * Methods

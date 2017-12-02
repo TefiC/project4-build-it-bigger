@@ -21,6 +21,12 @@ allprojects {
     }
 }
 
+task runAllConnectedTests() {
+    description 'Runs connected tests using a local server to provide the necessary data'
+    group 'Automatic Connected Tests'
+    finalizedBy 'startAppEngine'
+}
+
 task startAppEngine (dependsOn: ":backend:appengineRun") {
 
     evaluationDependsOn ":backend"
@@ -45,7 +51,6 @@ task runTests(dependsOn: ':app:connectedAndroidTest') {
     doLast {
         print("Ran tests")
     }
-
 }
 
 task stopAppEngine(dependsOn: ':backend:appengineStop') {
@@ -55,6 +60,4 @@ task stopAppEngine(dependsOn: ':backend:appengineStop') {
     }
 }
 
-task runAllTests() {
-    finalizedBy 'startAppEngine'
-}
+
