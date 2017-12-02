@@ -25,6 +25,15 @@ multiple libraries and Google Cloud Endpoints.
 * The free flavor displays an Ad on the Main Activity and an interstitial Ad when the user clicks on the "Tell Joke" button. When the user closes the Ad, the Activity that displays the joke will be launched.
 * If the internet connection is slow and the user clicks on the button before the interstitial Ad is loaded, the Activity is launched without any inconvenient. If the user then returns to the Main Activity and requests another joke, if the Ad has been loaded, it will be displayed.
 
+## Gradle Tasks
+
+- There are **four custom Gradle tasks** on the build.gradle file on the project's root directory.
+
+    - **runAllConnectedTests**: runs all the connected tests by fetching the necessary data from a local server.
+    - **startAppEngine** : starts the local server that will provide the data.
+    - **runTests**: runs the connected tests for each corresponding flavor.
+    - **stopAppEngine**: stops the local server.
+
 ## Skills
 
 * I learned the role of Gradle in building Android Apps and how to use
@@ -35,15 +44,6 @@ Gradle to manage apps of increasing complexity.
 * Configured a multi project build to compile the libraries and app.
 * Used the Gradle App Engine plugin to deploy a backend.
 * Configured an integration test suite that runs against the local App Engine development server.
-
-## Gradle Tasks
-
-- There are **four custom Gradle tasks** on the build.gradle file on the project's root directory.
-
-    - **runAllConnectedTests**: runs all the connected tests by fetching the necessary data from a local server.
-    - **startAppEngine** : starts the local server that will provide the data.
-    - **runTests**: runs the connected tests for each corresponding flavor.
-    - **stopAppEngine**: stops the local server.
 
 ## Attributions
 
