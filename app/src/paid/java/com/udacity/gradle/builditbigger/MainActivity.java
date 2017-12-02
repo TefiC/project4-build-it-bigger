@@ -13,7 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.example.JokeSupplier;
 import com.example.android.displayjoke.JokeActivity;
@@ -25,10 +26,13 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG_COUNTING_IDLING_RESOURCE = "NEW_LOADER";
+
+    private Context mContext;
+    private ProgressBar mProgressBar;
+    private RelativeLayout mMainActivityLayout;
 
     // Testing Idling resource
     public static CountingIdlingResource mIdlingResource = new CountingIdlingResource(TAG_COUNTING_IDLING_RESOURCE);
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mContext = this;
+
+        assignViews();
     }
 
 
@@ -69,14 +77,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The button pressed to display the joke
      */
     public void tellJoke(View view) {
-        String joke = JokeSupplier.supplyJoke();
-        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
-
-        // For testing idling resource
-        mIdlingResource.increment();
-
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, JokeSupplier.supplyJoke()));
-
+        startAsyncTask(mContext);
     }
 
     class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
@@ -84,9 +85,16 @@ public class MainActivity extends AppCompatActivity {
         private Context context;
 
         @Override
+        protected void onPreExecute() {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mMainActivityLayout.setVisibility(View.GONE);
+            super.onPreExecute();
+        }
+
+        @Override
         protected String doInBackground(Pair<Context, String>... params) {
 
-            if(myApiService == null) {  // Only do this once
+            if (myApiService == null) {  // Only do this once
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
                         // options for running against local devappserver
@@ -115,13 +123,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+
+            // Prepare intent
             Intent intent = new Intent(context, JokeActivity.class);
             intent.putExtra("joke", result);
+
+            // Launch activity
             startActivity(intent);
 
             // For testing idling resource
             mIdlingResource.decrement();
+
+            // Hide progess bar
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 
@@ -135,5 +149,27 @@ public class MainActivity extends AppCompatActivity {
             mIdlingResource = new CountingIdlingResource(TAG_COUNTING_IDLING_RESOURCE);
         }
         return mIdlingResource;
+    }
+
+    @Override
+    protected void onRestart() {
+
+        // In case the layout is not visible when the user returns to the activity
+        if (mMainActivityLayout.getVisibility() != View.VISIBLE) {
+            mMainActivityLayout.setVisibility(View.VISIBLE);
+        }
+
+        super.onRestart();
+    }
+
+    private void assignViews() {
+        mProgressBar = findViewById(R.id.joke_progress_bar);
+        mMainActivityLayout = findViewById(R.id.main_activity_layout);
+    }
+
+    private void startAsyncTask(Context context) {
+        // For testing idling resource
+        mIdlingResource.increment();
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(context, JokeSupplier.supplyJoke()));
     }
 }
