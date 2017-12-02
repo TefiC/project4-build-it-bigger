@@ -20,3 +20,41 @@ allprojects {
         }
     }
 }
+
+task startAppEngine (dependsOn: ":backend:appengineRun") {
+
+    evaluationDependsOn ":backend"
+
+    project(":backend"){
+        appengine{
+            daemon true
+        }
+    }
+
+    finalizedBy 'runTests'
+
+    doLast {
+        print("Started engine")
+    }
+}
+
+task runTests(dependsOn: ':app:connectedAndroidTest') {
+
+    finalizedBy 'stopAppEngine'
+
+    doLast {
+        print("Ran tests")
+    }
+
+}
+
+task stopAppEngine(dependsOn: ':backend:appengineStop') {
+
+    doLast {
+        print("Server stopped")
+    }
+}
+
+task runAllTests() {
+    finalizedBy 'startAppEngine'
+}
