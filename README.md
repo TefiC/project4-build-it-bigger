@@ -4,7 +4,7 @@
 
 ---
 
-In this project, I created an app with a paid and free flavors that uses
+In this project, I created an app with paid and free flavors that uses
 multiple libraries and Google Cloud Endpoints.
 
 - The app consists of four modules. 
@@ -30,7 +30,7 @@ multiple libraries and Google Cloud Endpoints.
 - There are **four custom Gradle tasks** on the build.gradle file on the project's root directory.
 
     - **runAllConnectedTests**: runs all the connected tests by fetching the necessary data from a local server.
-    - **startAppEngine** : starts the local server that will provide the data.
+    - **startAppEngine**: starts the local server that will provide the data.
     - **runTests**: runs the connected tests for each corresponding flavor.
     - **stopAppEngine**: stops the local server.
 
@@ -38,16 +38,16 @@ multiple libraries and Google Cloud Endpoints.
 
 * I learned the role of Gradle in building Android Apps and how to use
 Gradle to manage apps of increasing complexity. 
-* Added free and paid flavors to an app, and set up the build to share code between them.
+* Added free and paid flavors to an app.
 * Factored reusable code into a Java library.
 * Factored reusable Android code into an Android library.
-* Configured a multi project build to compile the libraries and app.
+* Configured a multi project build to compile the app and libraries.
 * Used the Gradle App Engine plugin to deploy a backend.
 * Configured an integration test suite that runs against the local App Engine development server.
 
 ## Attributions
 
-These resources were extremely helpful during my project:
+These resources were very helpful during my project:
 
 * The Jokes displayed on this app were taken from [The geekiest tech jokes on the internet](https://www.techrepublic.com/article/the-geekiest-tech-jokes-on-the-internet/)
 * Udacity Android Developer Nanodegree Courses
