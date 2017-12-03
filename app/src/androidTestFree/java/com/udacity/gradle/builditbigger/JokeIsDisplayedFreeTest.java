@@ -37,7 +37,7 @@ public class JokeIsDisplayedFreeTest {
      */
 
     @Test
-    public void joke_IsDisplayedCorrectly() {
+    public void jokeIsDisplayedCorrectly() {
 
         try {
             // Wait for ad to load

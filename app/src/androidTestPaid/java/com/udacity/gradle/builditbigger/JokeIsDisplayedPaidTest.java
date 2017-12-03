@@ -35,7 +35,7 @@ public class JokeIsDisplayedPaidTest {
      */
 
     @Test
-    public void joke_IsDisplayedCorrectly() {
+    public void jokeIsDisplayedCorrectly() {
         onView(ViewMatchers.withId(R.id.tell_joke_button)).perform(click());
 
         // Handle asynchronous request

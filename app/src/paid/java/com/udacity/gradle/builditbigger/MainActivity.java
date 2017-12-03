@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.example.JokeSupplier;
 import com.example.android.displayjoke.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -130,10 +129,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             context = params[0].first;
-            String joke = params[0].second;
 
             try {
-                return myApiService.tellJoke(joke).execute().getData();
+                return myApiService.tellJoke().execute().getData();
             } catch (IOException e) {
                 return e.getMessage();
             }
@@ -195,6 +193,6 @@ public class MainActivity extends AppCompatActivity {
     private void startAsyncTask(Context context) {
         // For testing idling resource
         mIdlingResource.increment();
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(context, JokeSupplier.supplyJoke()));
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(context, ""));
     }
 }

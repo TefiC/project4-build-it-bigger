@@ -16,7 +16,6 @@ multiple libraries and Google Cloud Endpoints.
 ## Features
 
 - When the user launches the app, an Activity with a message prompting the user to click a button to tell a joke will be displayed.
-- An Ad is displayed below this button using Google AdMob.
 - If the user clicks on the button, an activity is launched and a tech joke is displayed.
 - Jokes change every time the user clicks on the "Tell Joke" button until they reach the end of the list, in which case the list starts over.
 
@@ -24,6 +23,7 @@ multiple libraries and Google Cloud Endpoints.
 
 * The free flavor displays an Ad on the Main Activity and an interstitial Ad when the user clicks on the "Tell Joke" button. When the user closes the Ad, the Activity that displays the joke will be launched.
 * If the internet connection is slow and the user clicks on the button before the interstitial Ad is loaded, the Activity is launched without any inconvenient. If the user then returns to the Main Activity and requests another joke, if the Ad has been loaded, it will be displayed.
+* The Paid flavor doesn't display Ads.
 
 ## Gradle Tasks
 
@@ -58,3 +58,5 @@ These resources were very helpful during my project:
 * [Udacity Forum Post for Gradle Tasks Structure (2)](https://discussions.udacity.com/t/last-optional-step-how-to-start-an-external-module-task-from-the-root-build-gradle/24211/12)
 * [Google Cloud Endpoints (code and documentation)](https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints)
 * [Project from Udacity's Repository](https://github.com/udacity/ud867/tree/master/FinalProject)
+* [Implementing Interstitial Ads](https://developers.google.com/admob/android/interstitial)
+* [Implementing Ads](https://developers.google.com/admob/android/quick-start)
